@@ -1,0 +1,6 @@
+<tr>
+  <td><%= cart_widget.store_item.name  %></td>
+  <td><%= number_to_currency (cart_widget.quantity_purchased * cart_widget.price_at_purchase) %></td>
+  <td><%= link_to t('.remove_from_cart', :default => t("helpers.links.remove_from_cart")),
+	        remove_from_cart_store_item_path(cart_widget), :class => 'btn btn-danger btn-xs', method: :post  %></td>
+</tr>

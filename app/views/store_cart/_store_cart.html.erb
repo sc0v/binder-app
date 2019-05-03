@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class='row'>
+      <div class='col-xs-9'>Store Cart</div>
+      <div class='col-xs-3'>
+        <a href="#sc_actions" onclick='_toggleText(this, "Show", "Hide")'
+           class="btn btn-info btn-xs"  data-toggle="collapse">Hide</a>
+      </div>
+    </div>
+  </div>
+
+  <div id='sc_actions' class="collapse in panel-body">
+
+  <% if show_cart? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <%= render partial: 'store/items/cart_widget', collection: StorePurchase.items_in_cart %>
+
+      </tbody>
+    </table>
+    
+  <% end %>
+
+    <% if can?(:create, StoreItem) and @organization.blank? %>
+    <%= link_to t('.new_item', :default => t("helpers.links.new_item")),
+    new_store_item_path,
+    :class => 'btn btn-primary', :style => "width: 100%" %>
+    <% end %>
+  </div>
+</div>

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require datatables
 //= require_tree .
 
 $(document).on("ready page:change", function(){
@@ -58,3 +59,8 @@ function _toggleText(el, opt1, opt2){
   if($el.html().trim() == opt1.trim()) $el.html(opt2);
   else if($el.html().trim() == opt2.trim()) $el.html(opt1);
 }
+
+$(document).ready(function () {
+  $('#tasks').DataTable();
+});
+

@@ -2,7 +2,7 @@
   <h1>Welcome to Binder!</h1>
 </div>
 
-<div class="col-xs-10 col-sm-6">
+<div>
   <% if !user_signed_in? then %>
     <% if Rails.env.staging? or Rails.env.production? %>
       <p><%= link_to "Login to Begin", main_app.user_omniauth_authorize_path(:shibboleth), :class => "btn btn-success" %></p>
@@ -11,45 +11,70 @@
       <p>Please login to continue.</p>
     <% end %>
   <% elsif user_signed_in? and !current_user.participant.has_signed_waiver? then %>
-    <p><%= link_to "Sign Waiver", new_waiver_path, :class => "btn btn-success" %></p>
-    <br>
+    <%= link_to "Sign Waiver", new_waiver_path, :class => "btn btn-success" %>
   <% end %>
 
-  <% if can?(:read, Charge) %>
-    <p><%= link_to "Charges", charges_path, :class => "btn btn-primary" %></p>
-  <% end %>
-  <% if can?(:downtime, OrganizationTimelineEntry) %>
-    <p><%= link_to "Downtime", downtime_index_path, :class => "btn btn-primary" %></p>
-  <% end %>
-  <% if can?(:read, Faq) %>
-    <p><%= link_to "FAQs", faqs_path, :class => "btn btn-primary" %></p>
-  <% end %>
-  <% if can?(:read, Shift) %>
-    <p><%= link_to "Shifts", shifts_path, :class => "btn btn-primary" %></p>
+  <% if can?(:read, Faq) && %>
+    <%= link_to "FAQs", faqs_path, :class => "btn btn-primary" %>
   <% end %>
 
-  <% if can?(:read, Task) %>
-    <p><%= link_to "Tasks", tasks_path, :class => "btn btn-primary" %></p>
-  <% end %>
-  <% if can?(:structural, OrganizationTimelineEntry) %>
-    <p><%= link_to "Structural Queue", structural_path, :class => "btn btn-primary" %></p>
-  <% end %>
-  <% if can?(:electrical, OrganizationTimelineEntry) %>
-    <p><%= link_to "Electrical Queue", electrical_path, :class => "btn btn-primary" %></p>
-  <% end %>
+</div> <br>
 
-  <br>
+  <div class="row">
 
-  <% if user_signed_in? then %>
-    <%= form_tag(search_path, class: 'form-inline', role: 'search') do %>
-      <div class="form-group">
-        <div class="input-group">
-          <%= text_field_tag('query', '', :size => 10, :class => 'form-control col-md-6') %>
-          <span class="input-group-btn">
-            <%= submit_tag('Search', :class => 'btn btn-default') %>
-          </span>
-        </div>
+  <% if user_signed_in? %>
+    <% if current_user.participant.is_scc? %>
+
+     <%# Change to true to enable queues %>
+      <div class = "col col-sm-3">
+        <% if true %>
+          <%= render 'organization_timeline_entries/queue_sidebar' %>    
+        <% end %>
       </div>
+
+      <%# Change to true to enable downtime %>
+      <div class = "col col-sm-3">
+        <% if true %>
+          <%= render 'organization_timeline_entries/downtime_sidebar' %>
+        <% end %>
+      </div>
+
+      <div class= "col col-sm-3">
+        <%= render 'store_cart/store_cart' %>
+      </div>
+
+      <div class = "col col-sm-3">
+        <%= render 'tool_cart/tool_cart' %>
+      </div>
+
+  </div>
+
+
+   <div class="row">
+
+      <div class= "col col-sm-6">
+        <% if !@tasks_sidebar.blank? %>
+            <% cache ['tasks_sidebar', @tasks_sidebar] do %>
+              <%= render 'tasks/tasks_sidebar' %>
+            <% end %>
+        <% end %>
+      </div>
+
+      <div class= "col col-sm-6">
+        <% if !@current_shifts_sidebar.blank? or !@upcoming_shifts_sidebar.blank? %>
+          <% cache ['shift_sidebar', 'current', @current_shifts_sidebar, 'upcoming', @upcoming_shifts_sidebar] do%>
+            <%= render 'shifts/shifts_sidebar' %>
+          <% end %>
+        <% end %>
+      </div>
+
+  </div>
+
+      <%# Change to true to enable event sidebar %>
+      <% if true %>
+        <%= render 'events/events_sidebar' %>
+      <% end %>
+
+
     <% end %>
   <% end %>
-</div>

@@ -10,39 +10,41 @@
  *
  *= require_self
  *= require_tree .
+ *= require datatables
 */
 
-@import "bootstrap";
+@import 'bootstrap';
+@import 'datatables';
 
 body {
   padding-bottom: 30px;
 }
 
-.alert-inline{
+.alert-inline {
   margin: 4px;
   padding: 10px;
 }
 
-.full-width{
+.full-width {
   width: 100%;
 }
 
-.cart-item{
+.cart-item {
   padding: 8px 4px 8px 4px;
   border-top: 1px solid lightgrey;
   width: 100%;
   margin: 0;
 }
 
-.cart-item div{
+.cart-item div {
   padding: 0;
 }
 
-.cart-warning{
+.cart-warning {
   background-color: #fcf3dd;
 }
 
-.cart-button{
+.cart-button {
   width: 33%;
   white-space: normal;
   height: 55px;

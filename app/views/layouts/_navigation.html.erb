@@ -16,27 +16,17 @@
         <ul class="nav navbar-nav navbar-left">
           <!-- Normal Navbar LI's -->
           <li><%= link_to "Organizations", organizations_path(:type => "building") %></li>
-          <li><%= link_to "Tools", tools_path %></li>
-          <li><%= link_to "Store", store_items_path %></li>
-
-          <% if current_user.participant.is_booth_chair? %>
-              <% if can?(:structural, OrganizationTimelineEntry) %>
-                <li><%= link_to "Structural", structural_path %></li>
-              <% end %>
-              <% if can?(:electrical, OrganizationTimelineEntry) %>
-                <li><%= link_to "Electrical", electrical_path %></li>
-              <% end %>
+          <% if can?(:read, Faq) %>
+            <li><%= link_to "FAQs", faqs_path %></li>
           <% end %>
 
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Links<b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Links<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <% if can?(:read, Charge) %>
                 <li><%= link_to "Charges", charges_path %></li>
               <% end %>
-              <% if can?(:read, Faq) %>
-                <li><%= link_to "FAQs", faqs_path %></li>
-              <% end %>
+ 
               <% if can?(:read, Participant) %>
                 <li><%= link_to "Participants", participants_path %></li>
               <% end %>
@@ -45,6 +35,14 @@
               <% end %>
               <% if can?(:read, Task) %>
                 <li><%= link_to "Tasks", tasks_path %></li>
+              <% end %>
+              <li><%= link_to "Tools", tools_path %></li>
+              <li><%= link_to "Store", store_items_path %></li>
+              <% if can?(:downtime, OrganizationTimelineEntry) %>
+                <li><%= link_to "Downtime", downtime_index_path %></li>
+              <% end %>
+              <% if can?(:read, Event) %>
+                <li><%= link_to "Event Log", events_path %></li>
               <% end %>
               <% if !current_user.participant.is_booth_chair? %>
                 <% if can?(:structural, OrganizationTimelineEntry) %>
@@ -57,18 +55,21 @@
             </ul>
           </li>
 
+
           <% if current_user.participant.is_scc? %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">SCC Links<b class="caret"></b></a>
+              <% if is_admin? %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Links<b class="caret"></b></a>
+              <% end %>  
               <ul class="dropdown-menu">
-                <% if can?(:downtime, OrganizationTimelineEntry) %>
-                  <li><%= link_to "Downtime", downtime_index_path %></li>
-                <% end %>
-                <% if can?(:read, Event) %>
-                  <li><%= link_to "Event Log", events_path %></li>
-                <% end %>
                 <% if can?(:create, :reports) %>
                   <li><%= link_to "Reports", reports_path %></li>
+                <% end %>
+                <% if is_admin? %>
+                  <li><%# link_to "Create Carnival", show_uploader_path %></li>
+                <% end %>
+                <% if is_admin? %>
+                  <li><%= link_to "Edit Carnival" %></li>
                 <% end %>
               </ul>
             </li>
@@ -77,7 +78,7 @@
         </ul>
         <!-- Searchbar -->
         <form class="navbar-form navbar-left" role="search" accept-charset="UTF-8" action="/search" method="get" >
-          <input type="text" class="form-control" placeholder="Search..." id="query" name="query" style="width: 100px;">
+          <input type="text" class="form-control" placeholder="Search..." id="query" name="query" style="width: 200%;">
         </form>
       <% end %>
 
