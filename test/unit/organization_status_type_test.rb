@@ -4,12 +4,13 @@
 #
 # ### Columns
 #
-# Name           | Type               | Attributes
-# -------------- | ------------------ | ---------------------------
-# **`active`**   | `boolean`          | `default(TRUE)`
-# **`display`**  | `boolean`          |
-# **`id`**       | `integer`          | `not null, primary key`
-# **`name`**     | `string(255)`      |
+# Name            | Type               | Attributes
+# --------------- | ------------------ | ---------------------------
+# **`active`**    | `boolean`          | `default(TRUE)`
+# **`category`**  | `string(255)`      |
+# **`display`**   | `boolean`          |
+# **`id`**        | `integer`          | `not null, primary key`
+# **`name`**      | `string(255)`      |
 #
 
 require 'test_helper'

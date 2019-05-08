@@ -30,6 +30,9 @@ class OrganizationStatus < ActiveRecord::Base
   belongs_to :participant
 
   scope :displayable, -> { joins(:organization_status_type).where('organization_status_types.display = ?', true) }
-  scope :active,       -> { where(active: true) }
-  scope :inactive,     -> { where(active: false) }
+  scope :electrical, -> { joins(:organization_status_type).where('organization_status_types.category = ?', 'electrical') }
+  scope :structural, -> { joins(:organization_status_type).where('organization_status_types.category = ?', 'structural') }
+  scope :general, -> { joins(:organization_status_type).where('organization_status_types.category = ?', 'general') }
+  scope :active,      -> { where(active: true) }
+  scope :inactive,    -> { where(active: false) }
 end

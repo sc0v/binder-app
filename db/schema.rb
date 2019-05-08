@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190322200326) do
+ActiveRecord::Schema.define(version: 20190506153740) do
 
   create_table "certification_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -146,9 +146,10 @@ ActiveRecord::Schema.define(version: 20190322200326) do
   end
 
   create_table "organization_status_types", force: :cascade do |t|
-    t.string  "name",    limit: 255
+    t.string  "name",     limit: 255
     t.boolean "display"
-    t.boolean "active",              default: true
+    t.boolean "active",               default: true
+    t.string  "category", limit: 255
   end
 
   create_table "organization_statuses", force: :cascade do |t|

@@ -4,8 +4,22 @@
     <td>
       <% if !organization.organization_category.is_building %>
         &mdash;
-      <% elsif can?(:read, organization.organization_statuses.displayable.last) %>
-        <%= link_to organization.organization_statuses.displayable.last.organization_status_type.name, [organization, :organization_statuses] unless organization.organization_statuses.displayable.blank? %>
+      <% elsif can?(:read, organization.organization_statuses.displayable.electrical.last) %>
+        <%= link_to organization.organization_statuses.displayable.electrical.last.organization_status_type.name, [organization, :organization_statuses] unless organization.organization_statuses.displayable.electrical.blank? %>
+      <% end %>
+    </td>
+    <td>
+      <% if !organization.organization_category.is_building %>
+        &mdash;
+      <% elsif can?(:read, organization.organization_statuses.displayable.structural.last) %>
+        <%= link_to organization.organization_statuses.displayable.structural.last.organization_status_type.name, [organization, :organization_statuses] unless organization.organization_statuses.displayable.structural.blank? %>
+      <% end %>
+    </td>
+        <td>
+      <% if !organization.organization_category.is_building %>
+        &mdash;
+      <% elsif can?(:read, organization.organization_statuses.displayable.general.last) %>
+        <%= link_to organization.organization_statuses.displayable.general.last.organization_status_type.name, [organization, :organization_statuses] unless organization.organization_statuses.displayable.general.blank? %>
       <% end %>
     </td>
   <% end %>

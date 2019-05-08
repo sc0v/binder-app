@@ -16,13 +16,27 @@
   <% end %>
   <% if can?(:read, OrganizationStatus) and @organization.organization_category.is_building %>
     <p>
-      <strong>Status:</strong>
-      <% unless @organization.organization_statuses.displayable.last.blank? or not can?(:read, @organization.organization_statuses.displayable.last) %>
-        <%= link_to @organization.organization_statuses.displayable.last.organization_status_type.name, organization_organization_statuses_path(@organization) %> on <%= date_and_time @organization.organization_statuses.displayable.last.created_at %>
+      <strong>Electrical Status:</strong>
+      <% unless @organization.organization_statuses.displayable.electrical.last.blank? or not can?(:read, @organization.organization_statuses.displayable.last) %>
+        <%= link_to @organization.organization_statuses.displayable.electrical.last.organization_status_type.name, organization_organization_statuses_path(@organization) %> on <%= date_and_time @organization.organization_statuses.displayable.electrical.last.created_at %>
       <% end %>
+    </p>
+        <p>
+      <strong>Structural Status:</strong>
+      <% unless @organization.organization_statuses.displayable.structural.last.blank? or not can?(:read, @organization.organization_statuses.displayable.last) %>
+        <%= link_to @organization.organization_statuses.displayable.structural.last.organization_status_type.name, organization_organization_statuses_path(@organization) %> on <%= date_and_time @organization.organization_statuses.displayable.structural.last.created_at %>
+      <% end %>
+    </p>
+        <p>
+      <strong>General Status:</strong>
+      <% unless @organization.organization_statuses.displayable.general.last.blank? or not can?(:read, @organization.organization_statuses.displayable.last) %>
+        <%= link_to @organization.organization_statuses.displayable.general.last.organization_status_type.name, organization_organization_statuses_path(@organization) %> on <%= date_and_time @organization.organization_statuses.displayable.general.last.created_at %>
+      <% end %>
+    </p>
+    <p>
       <% if can?(:create, OrganizationStatus) %>
         <%= link_to t('.update', :default => t("helpers.links.update")),
-          [:new, @organization, :organization_status], :class => 'btn btn-primary btn-xs' %>
+        [:new, @organization, :organization_status], :class => 'btn btn-primary btn-xs' %>
       <% end %>
     </p>
   <% end %>
